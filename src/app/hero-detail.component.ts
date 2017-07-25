@@ -9,6 +9,7 @@ import {Hero} from "./hero";
 @Component({
   selector: 'hero-detail',
   templateUrl:'./hero-detail.component.html',
+  styleUrls: ['./hero-detail.component.css']
 })
 export class HeroDetailComponent implements OnInit{
   @Input() hero: Hero;
@@ -19,14 +20,14 @@ export class HeroDetailComponent implements OnInit{
         private location: Location
     ) {}
 
-    ngOnInit() : void {
-      this.route.paramMap
-          .switchMap((params: ParamMap) =>
-      this.heroService.getHero(+params.get('id')))
-          .subscribe();}
-
+    ngOnInit(): void {
+        this.route.paramMap
+            .switchMap((params: ParamMap) =>
+                this.heroService.getHero(+params.get('id')))
+            .subscribe(hero => this.hero = hero);
+    }
 
     goBack(): void{
-    this.location.back()
+    this.location.back();
     }
 }
